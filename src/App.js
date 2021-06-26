@@ -3,11 +3,21 @@ import './App.css';
 
 function App() {
   const [inputList, setInputList] = useState("");
+  const [items, setItems] = useState([]);
 
   const itemEvent = (event) => {
     event.preventDefault()
     setInputList(event.target.value)
   };
+  const listOfItems = () =>{
+    if(inputList?.trim()?.length >0) {
+      setItems( (oldItems) => {
+        return [...oldItems, inputList]
+      })
+      setInputList("")
+
+    }
+  }
 
 
 
@@ -17,10 +27,20 @@ function App() {
     <div className="center-div">
       <br />
       <h1>ToDoList</h1>
-      <input type="text" placeholder = "Add a item" onChange={itemEvent}/>
-      
+      <input 
+      type="text"
+      value={inputList}
+      placeholder = "Add a item"
+       onChange={itemEvent} 
+
+       />
+      <button className="button1" onClick={ listOfItems}> + </button>
       <ol>
-        <li>{inputList}</li>
+        {
+          items.map( (itemVal) => {
+            return <li>{itemVal}</li>;
+          })
+        }
       </ol>
     </div>
     </div>
