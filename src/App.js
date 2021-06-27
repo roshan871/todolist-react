@@ -16,7 +16,6 @@ function App() {
         return [...oldItems, inputList]
       })
       setInputList("")
-
     }
   }
 
@@ -38,8 +37,11 @@ function App() {
       <button className="button1" onClick={ listOfItems}> + </button>
       <ol>
         {
-          items.map( (itemVal) => {
-            return <ToDoList text = {itemVal} />
+          items.map( (itemVal, index) => {
+            return <ToDoList 
+            key={index}
+            id={index}
+            text = {itemVal} />
           })
         }
       </ol>
