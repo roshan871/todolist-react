@@ -18,6 +18,15 @@ function App() {
       setInputList("")
     }
   }
+  
+  const deleteItems = (id) => {
+    setItems( (oldItems) => {
+      return oldItems.filter((arrElem, index) => {
+        return index !== id;
+       
+      });
+    });
+  }
 
 
 
@@ -41,7 +50,8 @@ function App() {
             return <ToDoList 
             key={index}
             id={index}
-            text = {itemVal} />
+            text = {itemVal}
+            onSelect = {deleteItems} />
           })
         }
       </ol>

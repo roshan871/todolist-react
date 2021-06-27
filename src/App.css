@@ -71,7 +71,6 @@ ol li {
   display: flex;
   align-items: center;
   color: #8566aa;
-  text-transform: capitalize;
 }
 
 .todo-style {
