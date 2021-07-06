@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import './App.css';
-import ToDoList from './ToDoList';
+import ToDoItem from './ToDoItem';
+import {RiTodoFill } from "@react-icons/all-files/ri/RiTodoFill";
 
 function App() {
-  const [inputList, setInputList] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [items, setItems] = useState([]);
+ 
 
   const itemEvent = (event) => {
     event.preventDefault()
-    setInputList(event.target.value)
+    setInputValue(event.target.value)
   };
-  const listOfItems = () =>{
-    if(inputList?.trim()?.length >0) {
+  const addToList = () =>{
+    if(inputValue?.trim()?.length >0) {
       setItems( (oldItems) => {
-        return [...oldItems, inputList]
+        return [...oldItems, {item: inputValue, editing: false}]
       })
-      setInputList("")
+      setInputValue("")
     }
   }
   
@@ -28,30 +30,59 @@ function App() {
     });
   }
 
+  const editItems = (id, newText) =>{
+    setItems( (oldItems) => {
+      return oldItems.map((arrElem, index) => {
+        const { editing } = arrElem;
+        return index === id ? {item: newText, editing} : arrElem;
+      });
+    });
+  }
 
+  const toggleEditingState = (id) => {
+    setItems( (oldItems) => {
+      return oldItems.map((arrElem, index) => {
+        if (index === id) {
+          return {
+            item: arrElem.item, 
+            editing: !arrElem.editing
+          }
+        } else {
+          return arrElem;
+        }
+      });
+    });
+  }
+  
 
   return (
     <>
     <div className="main-div">
     <div className="center-div">
       <br />
-      <h1>ToDoList</h1>
+      <h1><RiTodoFill />ToDoList</h1>
       <input 
-      type="text"
-      value={inputList}
-      placeholder = "Add a item"
-       onChange={itemEvent} 
-
+        type="text"
+        value={inputValue}
+        placeholder = "Add a item"
+        onChange={itemEvent} 
        />
-      <button className="button1" onClick={ listOfItems}> + </button>
+      <button className="add-to-list-button" onClick={addToList}> + </button>
       <ol>
+      
         {
-          items.map( (itemVal, index) => {
-            return <ToDoList 
-            key={index}
-            id={index}
-            text = {itemVal}
-            onSelect = {deleteItems} />
+          items.map( ({item: itemVal, editing}, index) => {
+            return (
+              <ToDoItem 
+                key={`${index}-${itemVal}`}
+                id={index}
+                text={itemVal}
+                onDelete={deleteItems}
+                onEdit={editItems}
+                editing={editing}
+                toggleEditing={toggleEditingState}
+              />
+            )
           })
         }
       </ol>
