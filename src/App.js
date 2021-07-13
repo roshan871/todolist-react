@@ -9,15 +9,15 @@ function App() {
  
 
   const itemEvent = (event) => {
-    event.preventDefault()
-    setInputValue(event.target.value)
+    event.preventDefault();
+    setInputValue(event.target.value);
   };
   const addToList = () =>{
     if(inputValue?.trim()?.length >0) {
       setItems( (oldItems) => {
-        return [...oldItems, {item: inputValue, editing: false}]
+        return [...oldItems, {item: inputValue, editing: false}];
       })
-      setInputValue("")
+      setInputValue("");
     }
   }
   
@@ -59,13 +59,12 @@ function App() {
     <>
     <div className="main-div">
     <div className="center-div">
-      <br />
       <h1><RiTodoFill />ToDoList</h1>
       <input 
         type="text"
         value={inputValue}
         placeholder = "Add a item"
-        onChange={itemEvent} 
+        onChange={itemEvent}
        />
       <button className="add-to-list-button" onClick={addToList}> + </button>
       <ol>

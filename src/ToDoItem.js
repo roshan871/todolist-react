@@ -1,9 +1,8 @@
-import React from "react"
+import React from "react";
 import {RiDeleteBin6Line } from "@react-icons/all-files/ri/RiDeleteBin6Line";
 import {BiEditAlt } from "@react-icons/all-files/bi/BiEditAlt";
 import { AiFillCloseCircle } from '@react-icons/all-files/ai/AiFillCloseCircle';
 import { IoIosCheckmarkCircle } from '@react-icons/all-files/io/IoIosCheckmarkCircle';
-
 
 const ToDoList = (props) => {
     const editing = props.editing;
@@ -21,7 +20,7 @@ const ToDoList = (props) => {
                 toggleEditing(props.id);                
               }
             }}>
-              <IoIosCheckmarkCircle />
+              <IoIosCheckmarkCircle  />
           </button>
           <button 
             className="edit-button" 
@@ -39,9 +38,12 @@ const ToDoList = (props) => {
         </button>
       );
     }
+
     return (
       <div className="todo-style">
-        { editing ? <input type="text" data-id={props.id} /> : <li> {props.text} </li> }
+      <ul>
+        { editing ? <input type="text" data-id={props.id}/> : <li> {props.text} </li> }
+      </ul>
           <button 
             className="delete-button" 
             onClick={() =>{props.onDelete(props.id)}}>
@@ -49,8 +51,7 @@ const ToDoList = (props) => {
           </button>
           {editButtons}
       </div>
-    )
-    
+    ) 
 }
 
 export default ToDoList;
